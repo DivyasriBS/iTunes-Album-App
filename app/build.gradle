@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.divyasri.itunes"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    def retrofit_version = "0.9.2"
+    def gson_version = "2.3.0"
+    def okhttp_logging_version = "4.2.1"
+    def timber_version = "4.7.1"
+    def koin_version = "2.0.1"
+    def recycler_version = "2.0.1"
+    def glide_version = "4.11.0"
+    def compiler_version = '3.0.0-beta6'
+    def card_version='1.0.0'
+    def circular_version = '3.0.1'
+    def android_core_version = '1.1.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$android_core_version"
+    implementation "androidx.core:core-ktx:$android_core_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    //Retrofit 2 adapter for Kotlin coroutine's Deferred type.
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_version"
+    //Converter, uses Gson for serialization to and from JSON.
+    implementation "com.squareup.retrofit2:converter-gson:$gson_version"
+    //OkHttp interceptor which logs HTTP request and response data.
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
+    //Logging
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    //DI - Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    //Recyclerview
+    implementation "com.android.support:recyclerview-v7:$recycler_version"
+    implementation 'com.google.android.material:material:1.0.0'
+
+    //Only LiveData.
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.1.0'
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    //Viewmodel Scope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-rc03'
+
+    kapt "com.android.databinding:compiler:$compiler_version"
+    //Library for circular imageview
+    implementation "de.hdodenhof:circleimageview:$circular_version"
+    //Cardview
+    implementation "androidx.cardview:cardview:$card_version"
+
+    //Unit Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.3'
+    //Ui Testing
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    // For recycler view actions
+    androidTestImplementation ('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    // For espresso activity rule
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+}
